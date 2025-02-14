@@ -1,0 +1,55 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: transparent !important; */
+  box-shadow: none;
+}
+
+.box > div {
+  box-shadow: none;
+}
+.card {
+  background-color: transparent !important;
+  box-shadow: none;
+}
+.card-content {
+  padding: 0rem !important;
+}
+form.create-note {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+.titleInput,
+.noteInput,
+.alertInput {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  font-size: 1.2em !important;
+  font-family: inherit;
+  resize: none !important;
+}
+.alertInput svg{
+  color: #f5ba13;
+}
+.addButton {
+  position: absolute !important;
+  right: 18px !important;
+  bottom: -16px !important;
+  background: #f5ba13 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50%;
+  width: 36px !important;
+  height: auto !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)!important;
+  cursor: pointer !important;
+  outline: none !important;
+  border-radius: 50% !important;
+}

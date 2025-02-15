@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -152,10 +152,95 @@ function Note() {
       });
   }
 
+  const [draggedNote, setDraggedNote] = useState(null);
+
+  const handleDragStart = (e, noteId) => {
+    setDraggedNote(noteId);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = async (e, targetId) => {
+    e.preventDefault();
+    if (!draggedNote || draggedNote === targetId) return;
+
+    const updatedNotes = notes.map((note) => ({ ...note }));
+
+    // Find indexes
+    const draggedIndex = updatedNotes.findIndex((n) => n.id === draggedNote);
+    const targetIndex = updatedNotes.findIndex((n) => n.id === targetId);
+
+    if (draggedIndex === -1 || targetIndex === -1) return;
+
+    console.log("draggedIndex", draggedIndex);
+    console.log("targetIndex", targetIndex);
+    if (notes[draggedIndex].star != notes[targetIndex].star) {
+      handleToastClick("error", "Cannot swap starred and unstarred notes!");
+      return;
+    }
+
+    // Swap positions
+    const tempPosition = updatedNotes[draggedIndex].position;
+    updatedNotes[draggedIndex].position = updatedNotes[targetIndex].position;
+    updatedNotes[targetIndex].position = tempPosition;
+
+    // Swap elements
+    [updatedNotes[draggedIndex], updatedNotes[targetIndex]] = [
+      updatedNotes[targetIndex],
+      updatedNotes[draggedIndex],
+    ];
+
+    const prevNotes = notes.map((note) => ({ ...note }));
+    dispatch(setNotes(updatedNotes));
+
+    // Reset dragged item
+    setDraggedNote(null);
+
+    await axios
+      .put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/note/position`,
+        {
+          id1: updatedNotes[draggedIndex].id,
+          id2: updatedNotes[targetIndex].id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.status == 200) {
+          handleToastClick("success", "Note swapped successfully!");
+          return;
+        }
+        dispatch(setNotes(prevNotes));
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 403) {
+          dispatch(logout());
+          dispatch(clearUser());
+          dispatch(deleteSetting());
+        }
+        handleToastClick("error", "Failed to swap note!");
+        dispatch(setNotes(prevNotes));
+      });
+  };
   return (
     <>
       {notes.map((note) => (
-        <div className="note" key={note.id}>
+        <div
+          className="note"
+          key={note.id}
+          draggable
+          onDragStart={(e) => handleDragStart(e, note.id)}
+          onDragOver={handleDragOver}
+          onDrop={(e) => handleDrop(e, note.id)}
+        >
           <div className="note-title">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}

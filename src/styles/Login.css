@@ -1,0 +1,20 @@
+.phrase1 {
+  font-size: 0.8rem !important;
+  color: coral !important;
+  font-family: "McLaren", cursive !important;
+}
+
+.phrase2 {
+  font-family: "McLaren", cursive !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: #f5ba13 !important;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+}

@@ -9,7 +9,7 @@ body {
   background: #eee;
   padding: 0 16px;
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   height: max-content;
   overflow-x: hidden;
   width: 100vw;

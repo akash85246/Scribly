@@ -25,6 +25,10 @@ function Navbar() {
   const bg = useSelector((state) => state.settings.bg);
   //set background image here to make it load faster on reload
   document.body.style.backgroundImage = `url(${bg})`;
+  //set dark mode here to make it load faster on reload
+  if (darkMode) {
+    document.body.className = "dark";
+  }
 
   const handleGoogleLogin = async () => {
     const googleAuthWindow = window.open(

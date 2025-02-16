@@ -64,13 +64,14 @@ function Navbar() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get("http://localhost:5001/api/auth/user", {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/user`, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
         })
         .then((res) => {
+          console.log(res.data.user);
           dispatch(setUser(res.data.user));
         })
         .catch((err) => {
@@ -80,6 +81,32 @@ function Navbar() {
             dispatch(deleteSetting());
           }
           console.error("Error fetching user:", err);
+        });
+      // login update
+      console.log("updating login", jwt);
+      axios
+        .put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/updateLogin`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            return;
+          }
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 403) {
+            dispatch(logout());
+            dispatch(clearUser());
+            dispatch(deleteSetting());
+          }
+          console.error("Error updating login", err);
         });
     }
   }, [isAuthenticated, jwt, dispatch]);
@@ -106,6 +133,7 @@ function Navbar() {
             bg: newSetting.bg,
           };
 
+          document.body.style.backgroundImage = `url(${formattedSetting.bg})`;
           dispatch(setSetting(formattedSetting));
         })
         .catch((err) => {

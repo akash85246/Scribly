@@ -15,7 +15,9 @@ const initialState = {
   darkMode: safeParse("darkMode", false),
   notification: safeParse("notification", true),
   drag: safeParse("drag", true),
-  bg: localStorage.getItem("bg") || null,
+  bg:
+    localStorage.getItem("bg") ||
+    "https://www.transparenttextures.com/patterns/cartographer.png",
 };
 
 const settingsSlice = createSlice({
@@ -35,6 +37,12 @@ const settingsSlice = createSlice({
       localStorage.setItem("drag", JSON.stringify(state.drag));
     },
     setBg: (state, action) => {
+      if (action.payload === null) {
+        state.bg =
+          "https://www.transparenttextures.com/patterns/cartographer.png";
+        localStorage.setItem("bg", state.bg);
+        return;
+      }
       state.bg = action.payload;
       localStorage.setItem("bg", action.payload);
     },
@@ -50,8 +58,10 @@ const settingsSlice = createSlice({
       state.drag = drag;
       localStorage.setItem("drag", JSON.stringify(drag));
 
-      state.bg = bg;
-      localStorage.setItem("bg", bg);
+      if (bg !== null) {
+        state.bg = bg;
+        localStorage.setItem("bg", bg);
+      }
     },
     deleteSetting: (state) => {
       state.darkMode = false;
@@ -69,6 +79,12 @@ const settingsSlice = createSlice({
   },
 });
 
-export const { toggleDarkMode, setNotification, setBg, setSetting, setDrag,deleteSetting } =
-  settingsSlice.actions;
+export const {
+  toggleDarkMode,
+  setNotification,
+  setBg,
+  setSetting,
+  setDrag,
+  deleteSetting,
+} = settingsSlice.actions;
 export default settingsSlice.reducer;

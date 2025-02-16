@@ -6,7 +6,16 @@ html {
   font-family: "Montserrat", sans-serif;
 }
 body {
-  background: #eee;
+  /* background: #eee; */
+  /* background-color: #f5b913d2 !important; */
+  /* background: linear-gradient(to bottom, #fff8e1, #f0a500); */
+  /* background: #3b5998; */
+  /* star */
+  /* background: #d85a32; */
+  /* background: #1e1e1e; */
+  background: #11656685;
+  /* background: #fef953; */
+  /* background: linear-gradient(to bottom, #fff4e6, #f5b913); */
   padding: 0 16px;
   position: relative;
   min-height: 80vh;

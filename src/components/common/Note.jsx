@@ -26,6 +26,7 @@ function Note() {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state.note.notes);
   const jwt = useSelector((state) => state.auth.jwt);
+  const drag = useSelector((state) => state.settings.drag);
 
   const handleToastClick = (s, m) => {
     dispatch(
@@ -234,12 +235,12 @@ function Note() {
     <>
       {notes.map((note) => (
         <div
-          className="note"
+          className={"note" +" "+ (drag ? "drag" : "")}
           key={note.id}
-          draggable
-          onDragStart={(e) => handleDragStart(e, note.id)}
-          onDragOver={handleDragOver}
-          onDrop={(e) => handleDrop(e, note.id)}
+          draggable={drag}
+          onDragStart={drag ? (e) => handleDragStart(e, note.id) : undefined}
+          onDragOver={drag ? handleDragOver : undefined}
+          onDrop={drag ? (e) => handleDrop(e, note.id) : undefined}
         >
           <div className="note-title">
             <ReactMarkdown
@@ -262,10 +263,10 @@ function Note() {
             onClick={() => setStarred(note.id)}
             className="note-button star-button"
           >
-            {note.star == true ? <Star color="warning" /> : <StarBorder />}
+            {note.star == true ? <Star  /> : <StarBorder />}
           </IconButton>
           <button
-            className="note-button"
+            className="note-button edit-button"
             onClick={() => {
               handleEditNote(
                 note.id,

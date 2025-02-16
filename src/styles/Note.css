@@ -7,8 +7,12 @@
   margin: 16px;
   float: left;
   position: relative;
+  
 }
-.note:active {
+.note:active{
+  cursor: no-drop;
+}
+.drag:active {
   cursor: grabbing;
 }
 .note-title {
@@ -40,8 +44,12 @@
   outline: none;
   background-color: transparent;
 }
+.edit-button{
+  color: #116566;
+}
 
 .star-button {
   float: left !important;
+  color: #f5ba13!important;
   
 }

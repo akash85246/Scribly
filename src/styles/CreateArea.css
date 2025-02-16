@@ -25,6 +25,13 @@ form.create-note {
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
+
+.create-note.dark {
+  background-color: #2d2d2d !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+}
+
 .titleInput,
 .noteInput,
 .alertInput {
@@ -35,7 +42,54 @@ form.create-note {
   font-family: inherit;
   resize: none !important;
 }
-.alertInput svg{
+
+.titleInput.dark input,
+.noteInput.dark textarea,
+.alertInput.dark input {
+  background-color: #2d2d2d !important;
+  color: #f5f5f5 !important;
+}
+.titleInput.dark label,
+.noteInput.dark label,
+.alertInput.dark label {
+  color: #86c7c7 !important;
+}
+.titleInput label.Mui-focused,
+.noteInput label.Mui-focused,
+.alertInput label.Mui-focused {
+  color: #f5ba13 !important;
+}
+
+.titleInput.dark fieldset.Mui-focused,
+.noteInput.dark fieldset.Mui-focused,
+.alertInput.dark fieldset.Mui-focused {
+  border:1px solid #f5ba13;
+  color: #f5f5f5 !important;
+}
+.titleInput.dark fieldset,
+.noteInput.dark fieldset,
+.alertInput.dark fieldset {
+  border:1px solid #3f5c5c;
+  color: #f5f5f5 !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #f5ba13 !important;
+}
+
+.titleInput.dark fieldset:hover,
+.noteInput.dark fieldset:hover,
+.alertInput.dark fieldset:hover {
+  border:1px solid #3f5c5c;
+  color: #f5f5f5 !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #f5b913 !important; 
+}
+
+
+.alertInput svg {
   color: #f5ba13;
 }
 .addButton {
@@ -48,7 +102,7 @@ form.create-note {
   border-radius: 50%;
   width: 36px !important;
   height: auto !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)!important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   cursor: pointer !important;
   outline: none !important;
   border-radius: 50% !important;

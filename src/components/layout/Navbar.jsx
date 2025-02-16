@@ -21,6 +21,10 @@ function Navbar() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const jwt = useSelector((state) => state.auth.jwt);
   const user = useSelector((state) => state.user);
+  const darkMode = useSelector((state) => state.settings.darkMode);
+  const bg = useSelector((state) => state.settings.bg);
+  //set background image here to make it load faster on reload
+  document.body.style.backgroundImage = `url(${bg})`;
 
   const handleGoogleLogin = async () => {
     const googleAuthWindow = window.open(
@@ -134,6 +138,9 @@ function Navbar() {
           };
 
           document.body.style.backgroundImage = `url(${formattedSetting.bg})`;
+          if (formattedSetting.darkMode) {
+            document.body.className = "dark";
+          }
           dispatch(setSetting(formattedSetting));
         })
         .catch((err) => {
@@ -149,7 +156,7 @@ function Navbar() {
   }, [isAuthenticated, jwt, dispatch]);
 
   return (
-    <AppBar className="app-bar">
+    <AppBar className={"app-bar" + " " + (darkMode ? "dark" : "")}>
       <Toolbar className="tool-bar">
         {/* Logo & Title */}
         <a href="/">
@@ -157,7 +164,11 @@ function Navbar() {
             <Icon baseClassName="material-icons-two-tone" className="icon">
               <img src="/logo.png" alt="Logo" />
             </Icon>
-            <Typography variant="h4" fontWeight="semibold" className="app-name">
+            <Typography
+              variant="h4"
+              fontWeight="semibold"
+              className={"app-name" + " " + (darkMode ? "dark" : "")}
+            >
               Scribly
             </Typography>
           </Box>
@@ -176,7 +187,7 @@ function Navbar() {
             variant="contained"
             startIcon={<GoogleIcon className="google-icon" />}
             onClick={handleGoogleLogin}
-            className="google-signin"
+            className={"google-signin" + " " + (darkMode ? "dark" : "")}
           >
             Sign in with Google
           </Button>

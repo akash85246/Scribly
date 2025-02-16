@@ -15,10 +15,12 @@ import { deleteSetting } from "../../redux/slices/settingsSlice";
 
 import "../../styles/CreateArea.css";
 import axios from "axios";
+import { closeUpdateMode } from "../../redux/slices/updateSlice";
 
 function CreateArea() {
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const darkMode = useSelector((state) => state.settings.darkMode);
 
   const dispatch = useDispatch();
 
@@ -55,10 +57,19 @@ function CreateArea() {
     }));
   }
   function handleDateChange(newDate) {
+    const parsedDate = dayjs(newDate);
+
+  if (parsedDate.isValid()) {
     setNote((prevNote) => ({
       ...prevNote,
-      alert: newDate ? dayjs(newDate).toISOString() : null,
+      alert: parsedDate.toISOString(),
     }));
+  } else {
+    setNote((prevNote) => ({
+      ...prevNote,
+      alert: null, 
+    }));
+  }
   }
 
   async function handleSubmit(event) {
@@ -129,6 +140,7 @@ function CreateArea() {
       .then((res) => {
         const newNote = res.data.note;
         dispatch(updateNote(newNote));
+        dispatch(closeUpdateMode());
         handleToastClick("success", "Note added successfully!");
       })
       .catch((err) => {
@@ -148,14 +160,14 @@ function CreateArea() {
 
   return (
     <Box className="box">
-      <Card className="card">
+      <Card className={"card" + " " + (darkMode ? " dark" : "")}>
         <CardContent className="card-content">
-          <form className="create-note">
+          <form className={"create-note" + " " + (darkMode ? " dark" : "")}>
             {isClicked && (
               <TextField
                 name="title"
                 label="Title"
-                className="titleInput"
+                className={"titleInput" + " " + (darkMode ? " dark" : "")}
                 fullWidth
                 variant="outlined"
                 value={note.title}
@@ -167,7 +179,7 @@ function CreateArea() {
             <TextField
               name="content"
               label="Take a note..."
-              className="noteInput"
+              className={"noteInput" + " " + (darkMode ? " dark" : "")}
               fullWidth
               multiline
               rows={isClicked ? 3 : 1}
@@ -184,7 +196,7 @@ function CreateArea() {
                   label="Select Date"
                   name="alert"
                   fullWidth
-                  className="alertInput"
+                  className={"alertInput" + " " + (darkMode ? " dark" : "")}
                   value={note.alert ? dayjs(note.alert) : null}
                   onChange={handleDateChange}
                   sx={{ mb: 2 }}
@@ -193,7 +205,7 @@ function CreateArea() {
               </LocalizationProvider>
             )}
 
-            <Zoom in={isClicked} className="addButton">
+            <Zoom in={isClicked} className={"addButton" + " " + (darkMode ? " dark" : "")}>
               {update.update ? (
                 <Fab onClick={handleUpdateSubmit} disabled={isLoading}>
                   <ChangeCircleIcon />

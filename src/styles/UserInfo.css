@@ -11,6 +11,12 @@
   overflow: hidden;
 }
 
+.user-info__card.dark {
+  background-color: #2d2d2d !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #f5f5f5 !important;
+}
+
 .user-info__content {
   display: flex;
   align-items: center;
@@ -38,16 +44,26 @@
   font-weight: 600;
   color: #333;
 }
+.user-info__name.dark {
+  color: #f5f5f5 !important;
+}
 
 .user-info__details p {
   font-size: 14px;
   color: #666;
   margin-top: 4px;
 }
+.user-info__details.dark p {
+  color: #999 !important;
+}
 
 .user-info__details p:last-child {
   font-style: italic;
   color: #999;
+}
+.user-info__details.dark p:last-child {
+  font-style: italic;
+  color: #666 !important;
 }
 
 /* Settings Image (Always at Bottom Right) */

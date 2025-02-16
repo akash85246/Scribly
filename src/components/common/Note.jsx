@@ -27,6 +27,7 @@ function Note() {
   const notes = useSelector((state) => state.note.notes);
   const jwt = useSelector((state) => state.auth.jwt);
   const drag = useSelector((state) => state.settings.drag);
+  const darkMode = useSelector((state) => state.settings.darkMode);
 
   const handleToastClick = (s, m) => {
     dispatch(
@@ -235,7 +236,13 @@ function Note() {
     <>
       {notes.map((note) => (
         <div
-          className={"note" +" "+ (drag ? "drag" : "")}
+          className={
+            "note" +
+            " " +
+            (drag ? "drag" : "") +
+            " " +
+            (darkMode ? " dark" : "")
+          }
           key={note.id}
           draggable={drag}
           onDragStart={drag ? (e) => handleDragStart(e, note.id) : undefined}
@@ -263,7 +270,7 @@ function Note() {
             onClick={() => setStarred(note.id)}
             className="note-button star-button"
           >
-            {note.star == true ? <Star  /> : <StarBorder />}
+            {note.star == true ? <Star /> : <StarBorder />}
           </IconButton>
           <button
             className="note-button edit-button"

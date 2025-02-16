@@ -47,6 +47,7 @@ export default function SettingInfo() {
   };
   async function updateDarkMode(value) {
     dispatch(toggleDarkMode(value));
+    document.body.className = value ? "dark" : "";
     await axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/api/setting/darkmode`,
@@ -70,6 +71,7 @@ export default function SettingInfo() {
           dispatch(deleteSetting());
         }
         dispatch(toggleDarkMode(!value));
+        document.body.className = !value ? "dark" : "";
         handleToastClick("error", "Failed to update dark mode!");
         console.error(err);
       });
@@ -174,14 +176,14 @@ export default function SettingInfo() {
       <Card
         elevation={3}
         sx={{ p: 3, borderRadius: 3 }}
-        className="setting-info__card"
+        className={"setting-info__card" + " " + (darkMode ? "dark" : "")}
       >
         <CardContent>
           <Typography
             variant="h5"
             gutterBottom
             sx={{ fontWeight: "bold" }}
-            className="setting-info__title"
+            className={"setting-info__title"+ " " + (darkMode ? "dark" : "")}
           >
             <SettingsIcon />
             Settings
@@ -193,7 +195,7 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className="setting-info_subtitle">
+              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
                 <DarkModeIcon />
                 Dark Mode
               </Typography>
@@ -208,7 +210,7 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className="setting-info_subtitle">
+              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
                 <PanToolIcon />
                 Enable Dragging
               </Typography>
@@ -220,7 +222,7 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className="setting-info_subtitle">
+              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
                 <NotificationsIcon />
                 Enable Notifications
               </Typography>
@@ -235,7 +237,7 @@ export default function SettingInfo() {
           <Typography
             variant="h6"
             sx={{ mt: 3, fontWeight: "bold" }}
-            className="setting-info__title"
+            className={"setting-info__title"+ " " + (darkMode ? "dark" : "")}
           >
             <WallpaperIcon />
             Select Background:

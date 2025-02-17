@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/" />;
 };
 ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired,

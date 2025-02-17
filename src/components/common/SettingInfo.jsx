@@ -45,6 +45,9 @@ export default function SettingInfo() {
       })
     );
   };
+
+  const VAPID_PUBLIC_KEY = import.meta.env.VITE_WEB_PUSH_PUBLIC_KEY;
+
   async function updateDarkMode(value) {
     dispatch(toggleDarkMode(value));
     document.body.className = value ? "dark" : "";
@@ -60,7 +63,7 @@ export default function SettingInfo() {
         }
       )
       .then((res) => {
-        if(res.status == 200){
+        if (res.status == 200) {
           handleToastClick("success", "Dark mode updated!");
         }
       })
@@ -90,7 +93,34 @@ export default function SettingInfo() {
         }
       )
       .then((res) => {
-        if(res.status == 200){
+        if (res.status == 200) {
+          handleToastClick("success", "Drag updated!");
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 403) {
+          dispatch(logout());
+          dispatch(clearUser());
+          dispatch(deleteSetting());
+        }
+        dispatch(setDrag(!value));
+        handleToastClick("error", "Failed to update drag!");
+        console.error(err);
+      });
+
+    await axios
+      .put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/setting/drag`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        if (res.status == 200) {
           handleToastClick("success", "Drag updated!");
         }
       })
@@ -105,6 +135,7 @@ export default function SettingInfo() {
         console.error(err);
       });
   }
+
   async function updateNotification(value) {
     dispatch(setNotification(value));
     console.log(notification);
@@ -120,8 +151,16 @@ export default function SettingInfo() {
         }
       )
       .then((res) => {
-        if(res.status == 200){
+        if (res.status == 200) {
           handleToastClick("success", "Notification updated!");
+          console.log("value", value);
+          if (value) {
+            console.log("subscribing");
+            subscribeUser();
+          } else {
+            console.log("unsubscribing");
+            unsubscribeUser();
+          }
         }
       })
       .catch((err) => {
@@ -135,6 +174,50 @@ export default function SettingInfo() {
         console.error(err);
       });
   }
+
+  //update subscription
+  const subscribeUser = async () => {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: VAPID_PUBLIC_KEY,
+    });
+
+    await axios
+      .post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/subscription/add`,
+        { subscription },
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+          withCredentials: true,
+        }
+      )
+      .catch((err) => {
+        console.error("Failed to subscribe the user: ", err);
+      });
+  };
+
+  const unsubscribeUser = async () => {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    if (subscription) {
+      await subscription.unsubscribe();
+
+      await axios
+        .delete(`${import.meta.env.VITE_BACKEND_URL}/api/subscription/remove`, {
+          data: { endpoint: subscription.endpoint },
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+          withCredentials: true,
+        })
+        .catch((err) => {
+          console.error("Failed to subscribe the user: ", err);
+        });
+    }
+  };
 
   async function updateBackground(value) {
     // console.log("value",value);
@@ -154,7 +237,7 @@ export default function SettingInfo() {
         }
       )
       .then((res) => {
-        if(res.status == 200){
+        if (res.status == 200) {
           handleToastClick("success", "Background updated!");
         }
       })
@@ -183,7 +266,7 @@ export default function SettingInfo() {
             variant="h5"
             gutterBottom
             sx={{ fontWeight: "bold" }}
-            className={"setting-info__title"+ " " + (darkMode ? "dark" : "")}
+            className={"setting-info__title" + " " + (darkMode ? "dark" : "")}
           >
             <SettingsIcon />
             Settings
@@ -195,7 +278,12 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
+              <Typography
+                variant="body1"
+                className={
+                  "setting-info_subtitle" + " " + (darkMode ? "dark" : "")
+                }
+              >
                 <DarkModeIcon />
                 Dark Mode
               </Typography>
@@ -210,7 +298,12 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
+              <Typography
+                variant="body1"
+                className={
+                  "setting-info_subtitle" + " " + (darkMode ? "dark" : "")
+                }
+              >
                 <PanToolIcon />
                 Enable Dragging
               </Typography>
@@ -222,7 +315,12 @@ export default function SettingInfo() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="body1" className={"setting-info_subtitle"+ " " + (darkMode ? "dark" : "")}>
+              <Typography
+                variant="body1"
+                className={
+                  "setting-info_subtitle" + " " + (darkMode ? "dark" : "")
+                }
+              >
                 <NotificationsIcon />
                 Enable Notifications
               </Typography>
@@ -237,7 +335,7 @@ export default function SettingInfo() {
           <Typography
             variant="h6"
             sx={{ mt: 3, fontWeight: "bold" }}
-            className={"setting-info__title"+ " " + (darkMode ? "dark" : "")}
+            className={"setting-info__title" + " " + (darkMode ? "dark" : "")}
           >
             <WallpaperIcon />
             Select Background:

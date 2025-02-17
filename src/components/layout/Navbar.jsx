@@ -32,7 +32,7 @@ function Navbar() {
 
   const handleGoogleLogin = async () => {
     const googleAuthWindow = window.open(
-      "http://localhost:5001/api/auth/signin",
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/signin`,
       "_blank",
       "width=500,height=600"
     );
@@ -48,7 +48,7 @@ function Navbar() {
 
   useEffect(() => {
     const receiveMessage = async (event) => {
-      if (event.origin !== "http://localhost:5001") {
+      if (event.origin !== `${import.meta.env.VITE_BACKEND_URL}`) {
         // console.warn("Ignoring message from unknown origin:", event.origin);
         return;
       }
@@ -79,7 +79,6 @@ function Navbar() {
           },
         })
         .then((res) => {
-          console.log(res.data.user);
           dispatch(setUser(res.data.user));
         })
         .catch((err) => {
@@ -90,8 +89,7 @@ function Navbar() {
           }
           console.error("Error fetching user:", err);
         });
-      // login update
-      console.log("updating login", jwt);
+
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/auth/updateLogin`,
@@ -122,7 +120,7 @@ function Navbar() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get("http://localhost:5001/api/setting", {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/setting`, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${jwt}`,

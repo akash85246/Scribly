@@ -1,5 +1,4 @@
-let BASE_URL = "http://localhost:5001"; // Default value
-
+let BASE_URL ="";
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SET_BASE_URL") {
     BASE_URL = event.data.baseUrl;
@@ -15,13 +14,11 @@ self.addEventListener("push", (event) => {
     const title = jsonData.title ? jsonData.title.replace(/<[^>]*>/g, "") : "";
     const body = jsonData.body ? jsonData.body.replace(/<[^>]*>/g, "") : "";
 
-    const url = "https://scribly-kappa.vercel.app/";
-
     self.registration
       .showNotification(title, {
         body: body,
         icon: "/logo.png",
-        data: { url: url },
+        data: { url: BASE_URL },
       })
       .then(() => {
         console.log("Notification displayed successfully!");
@@ -44,7 +41,7 @@ self.addEventListener("notificationclick", (event) => {
         if (clientList.length > 0) {
           return clientList[0].focus();
         }
-        const url = "https://scribly-kappa.vercel.app/";
+        const url = BASE_URL;
         return self.clients.openWindow(url);
       })
       .catch((error) => {

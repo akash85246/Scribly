@@ -14,7 +14,7 @@ const App = () => {
           if (registration.active) {
             registration.active.postMessage({
               type: "SET_BASE_URL",  
-              baseUrl: import.meta.env.VITE_BACKEND_URL, 
+              baseUrl: import.meta.env.VITE_BASE_URL, 
             });
           }
         })

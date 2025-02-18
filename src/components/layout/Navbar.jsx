@@ -39,9 +39,7 @@ function Navbar() {
 
     //  Polling to check when the popup closes
     const checkPopupClosed = setInterval(() => {
-      console.log("Checking popup status...");
       if (googleAuthWindow?.closed) {
-        console.log("Popup closed!");
         clearInterval(checkPopupClosed);
         window.location.reload();
       }
@@ -50,26 +48,22 @@ function Navbar() {
 
   useEffect(() => {
     const receiveMessage = async (event) => {
-      console.log("event.origin", event.origin);
-      
+
       if (event.origin !== `${import.meta.env.VITE_BACKEND_URL}`) {
         console.warn("Ignoring message from unknown origin:", event.origin);
         return;
       }
 
       const { success, token } = event.data || {};
-      console.log("event.data", event.data);
       if (!success || !token) {
         console.warn("Invalid data received:", event.data);
         return;
       }
       dispatch(login({ jwt: token }));
     };
-    console.log("Adding event listener");
     window.addEventListener("message", receiveMessage);
 
     return () => {
-      console.log("Removing event listener");
       window.removeEventListener("message", receiveMessage);
     };
   }, [dispatch]);

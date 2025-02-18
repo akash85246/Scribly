@@ -138,7 +138,6 @@ export default function SettingInfo() {
 
   async function updateNotification(value) {
     dispatch(setNotification(value));
-    console.log(notification);
     await axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/api/setting/notification`,
@@ -153,12 +152,9 @@ export default function SettingInfo() {
       .then((res) => {
         if (res.status == 200) {
           handleToastClick("success", "Notification updated!");
-          console.log("value", value);
           if (value) {
-            console.log("subscribing");
             subscribeUser();
           } else {
-            console.log("unsubscribing");
             unsubscribeUser();
           }
         }
@@ -220,7 +216,6 @@ export default function SettingInfo() {
   };
 
   async function updateBackground(value) {
-    // console.log("value",value);
     dispatch(setBg(value));
     document.body.style.backgroundImage = `url(${value})`;
     await axios

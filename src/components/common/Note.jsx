@@ -176,9 +176,6 @@ function Note() {
     const targetIndex = updatedNotes.findIndex((n) => n.id === targetId);
 
     if (draggedIndex === -1 || targetIndex === -1) return;
-
-    console.log("draggedIndex", draggedIndex);
-    console.log("targetIndex", targetIndex);
     if (notes[draggedIndex].star != notes[targetIndex].star) {
       handleToastClick("error", "Cannot swap starred and unstarred notes!");
       return;

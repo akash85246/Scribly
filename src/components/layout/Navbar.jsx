@@ -51,6 +51,7 @@ function Navbar() {
   useEffect(() => {
     const receiveMessage = async (event) => {
       console.log("event.origin", event.origin);
+      
       if (event.origin !== `${import.meta.env.VITE_BACKEND_URL}`) {
         console.warn("Ignoring message from unknown origin:", event.origin);
         return;
@@ -64,10 +65,11 @@ function Navbar() {
       }
       dispatch(login({ jwt: token }));
     };
-
+    console.log("Adding event listener");
     window.addEventListener("message", receiveMessage);
 
     return () => {
+      console.log("Removing event listener");
       window.removeEventListener("message", receiveMessage);
     };
   }, [dispatch]);
@@ -84,7 +86,6 @@ function Navbar() {
         })
         .then((res) => {
           dispatch(setUser(res.data.user));
-          
         })
         .catch((err) => {
           if (err.response && err.response.status === 403) {

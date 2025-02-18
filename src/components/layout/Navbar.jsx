@@ -54,13 +54,13 @@ function Navbar() {
       }
 
       const { success, token } = event.data || {};
+      console.log("event.data", event.data);
       if (!success || !token) {
         console.warn("Invalid data received:", event.data);
         return;
       }
       dispatch(login({ jwt: token }));
     };
-
     window.addEventListener("message", receiveMessage);
 
     return () => {
@@ -80,6 +80,7 @@ function Navbar() {
         })
         .then((res) => {
           dispatch(setUser(res.data.user));
+          
         })
         .catch((err) => {
           if (err.response && err.response.status === 403) {

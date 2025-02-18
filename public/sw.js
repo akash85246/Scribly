@@ -22,20 +22,32 @@ self.addEventListener("push", (event) => {
     console.log("Parsed and Cleaned Title:", title);
     console.log("Parsed and Cleaned Body:", body);
 
-    event.waitUntil(
-      self.registration
-        .showNotification(title, {
-          body: body,
-          icon: "/logo.png",
-          data: { url: BASE_URL },
-        })
-        .then(() => {
-          console.log("Notification shown successfully!");
-        })
-        .catch((err) => {
-          console.error("Error showing notification:", err);
-        })
-    );
+    const url ="https://scribly-kappa.vercel.app/";
+    
+    self.registration.showNotification(title, {
+        body: body,
+        icon: "/logo.png",
+        data: { url: url },
+      }).then(() => {
+        console.log("Notification displayed successfully!");
+      }).catch((err) => {
+        console.error("Error displaying notification:", err);
+      });
+
+    // event.waitUntil(
+    //   self.registration
+    //     .showNotification(title, {
+    //       body: body,
+    //       icon: "/logo.png",
+    //       data: { url: BASE_URL },
+    //     })
+    //     .then(() => {
+    //       console.log("Notification shown successfully!");
+    //     })
+    //     .catch((err) => {
+    //       console.error("Error showing notification:", err);
+    //     })
+    // );
   } else {
     console.log("Push event received, but no data.");
   }
@@ -51,7 +63,9 @@ self.addEventListener("notificationclick", (event) => {
         if (clientList.length > 0) {
           return clientList[0].focus();
         }
-        const url = event.notification.data.url || "/";
+        const url ="https://scribly-kappa.vercel.app/";
+        console.log("Opening URL:", event.notification.data);
+        console.log("Opening URL:", url);
         return self.clients.openWindow(url);
       })
       .catch((error) => {

@@ -73,7 +73,7 @@ const settingsSlice = createSlice({
       state.drag = true;
       localStorage.removeItem("drag");
 
-      state.bg = null;
+      state.bg =" https://www.transparenttextures.com/patterns/cartographer.png";
       localStorage.removeItem("bg");
     },
   },

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import settingsImage from "../../assets/settings.svg";
 import "../../styles/UserInfo.css";
+import Logout from "./Logout";
 
 export default function UserInfo() {
   const user = useSelector((state) => state.user);
@@ -35,6 +36,7 @@ export default function UserInfo() {
             <Typography variant="body2" color="textSecondary">
               Last Online: {user.last_online}
             </Typography>
+            <Logout />
           </div>
         </CardContent>
         <img

@@ -22,6 +22,7 @@ const noteSlice = createSlice({
         title_markdown: action.payload.title_markdown ,
         content_markdown: action.payload.content_markdown ,
         star: action.payload.star,
+        created_at: action.payload.created_at,
       };
       state.notes.push(newNote); 
       localStorage.setItem("notes", JSON.stringify(state.notes)); 
@@ -29,10 +30,8 @@ const noteSlice = createSlice({
 
     updateNote: (state, action) => {
       const index = state.notes.findIndex((note) => note.id === action.payload.id);
-      console.log(index);
       if (index !== -1) {
-        state.notes[index] = { ...state.notes[index], ...action.payload }; 
-        console.log(state.notes[index]);
+        state.notes[index] = { ...state.notes[index], ...action.payload };
         localStorage.setItem("notes", JSON.stringify(state.notes));
       }
     },

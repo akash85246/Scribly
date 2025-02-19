@@ -14,7 +14,6 @@ export default function View() {
   const handleViewChange = async(event, newView) => {
     if (newView !== null) {
      dispatch(setViews(newView));
-     console.log("View changed to: ", newView);
     }
   };
 

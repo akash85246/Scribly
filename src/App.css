@@ -22,8 +22,6 @@ body {
   min-height: 80vh;
   height: max-content;
   overflow-x: hidden;
-  width: 100vw;
-  /* background-image: url("https://www.transparenttextures.com/patterns/cartographer.png"); */
   padding-top: 4rem;
 }
 

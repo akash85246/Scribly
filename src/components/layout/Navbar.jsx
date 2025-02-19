@@ -22,12 +22,19 @@ function Navbar() {
   const jwt = useSelector((state) => state.auth.jwt);
   const user = useSelector((state) => state.user);
   const darkMode = useSelector((state) => state.settings.darkMode);
+  const drag = useSelector((state) => state.settings.drag);
   const bg = useSelector((state) => state.settings.bg);
   //set background image here to make it load faster on reload
   document.body.style.backgroundImage = `url(${bg})`;
   //set dark mode here to make it load faster on reload
   if (darkMode) {
     document.body.className = "dark";
+  }
+  if (drag) {
+    const note = document.getElementsByClassName("note");
+    for (let i = 0; i < note.length; i++) {
+      note[i].style.cursor = "grab";
+    }
   }
 
   const handleGoogleLogin = async () => {
@@ -48,9 +55,8 @@ function Navbar() {
 
   useEffect(() => {
     const receiveMessage = async (event) => {
-
       if (event.origin !== `${import.meta.env.VITE_BACKEND_URL}`) {
-        console.warn("Ignoring message from unknown origin:", event.origin);
+        // console.warn("Ignoring message from unknown origin:", event.origin);
         return;
       }
 

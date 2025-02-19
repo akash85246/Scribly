@@ -28,6 +28,8 @@ function Note() {
   const jwt = useSelector((state) => state.auth.jwt);
   const drag = useSelector((state) => state.settings.drag);
   const darkMode = useSelector((state) => state.settings.darkMode);
+  const [draggedNote, setDraggedNote] = useState(null);
+
 
   const handleToastClick = (s, m) => {
     dispatch(
@@ -119,6 +121,7 @@ function Note() {
       })
     );
   }
+
   async function setStarred(id) {
     const note = notes.find((note) => note.id === id);
     const star = note.star;
@@ -154,10 +157,11 @@ function Note() {
       });
   }
 
-  const [draggedNote, setDraggedNote] = useState(null);
-
+ 
   const handleDragStart = (e, noteId) => {
     setDraggedNote(noteId);
+    const note=document.getElementById(noteId);
+    note.style.opacity = "0.4";
     e.dataTransfer.effectAllowed = "move";
   };
 
@@ -195,6 +199,8 @@ function Note() {
     const prevNotes = notes.map((note) => ({ ...note }));
     dispatch(setNotes(updatedNotes));
 
+    const note=document.getElementById(draggedNote);
+    note.style.opacity = "1";
     // Reset dragged item
     setDraggedNote(null);
 
@@ -241,6 +247,7 @@ function Note() {
             (darkMode ? " dark" : "")
           }
           key={note.id}
+          id={note.id}
           draggable={drag}
           onDragStart={drag ? (e) => handleDragStart(e, note.id) : undefined}
           onDragOver={drag ? handleDragOver : undefined}

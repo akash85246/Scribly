@@ -1,0 +1,17 @@
+.view-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 6rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  left: 0%;
+
+  margin: auto;
+}
+
+.view-container>div{
+  gap: 0rem !important;
+}

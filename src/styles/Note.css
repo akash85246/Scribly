@@ -8,6 +8,12 @@
   float: left;
   position: relative;
   border: 1px solid #f5ba13;
+  transition: all 0.3s;
+}
+
+.note-content{
+  max-height: 40vh;
+  overflow-y: auto;
 }
 
 @media screen and (max-width: 850px) {

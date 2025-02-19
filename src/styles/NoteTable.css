@@ -1,0 +1,54 @@
+.actionsButton {
+  display: flex;
+  justify-content: space-evenly;
+}
+.action-button > svg {
+  color: #f5ba13 !important ;
+}
+.table-container {
+  max-width: 100%;
+  overflow-x: 100%;
+  background-color: #fff;
+  color: #000;
+  margin-bottom: 5rem;
+}
+.table-container.dark {
+  background-color: #2d2d2d !important ;
+  color: #fff;
+}
+
+.table-head > tr {
+  background-color: #f5ba13 !important;
+}
+
+.table-head > tr > th {
+  color: #fff !important;
+}
+
+.modal-title {
+  display: flex !important;
+  gap: 1rem;
+}
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.markdown {
+  word-break: break-all;
+}
+.modal-edit-button {
+  background-color: #f5ba13 !important;
+}
+.modal-delete-button {
+  background-color: #f5ba13 !important;
+}
+.modal-edit-button.dark {
+  background-color: #2d2d2d !important;
+}
+.modal-delete-button.dark {
+  background-color: #2d2d2d !important;
+}
+.tool-tip-content {
+  max-height: 50vh;
+  overflow-y: auto;
+}

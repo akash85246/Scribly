@@ -29,8 +29,10 @@ const noteSlice = createSlice({
 
     updateNote: (state, action) => {
       const index = state.notes.findIndex((note) => note.id === action.payload.id);
+      console.log(index);
       if (index !== -1) {
-        state.notes[index] = { ...state.notes[index], ...action.payload }; // Merge updates
+        state.notes[index] = { ...state.notes[index], ...action.payload }; 
+        console.log(state.notes[index]);
         localStorage.setItem("notes", JSON.stringify(state.notes));
       }
     },

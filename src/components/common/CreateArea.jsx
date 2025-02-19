@@ -59,17 +59,17 @@ function CreateArea() {
   function handleDateChange(newDate) {
     const parsedDate = dayjs(newDate);
 
-  if (parsedDate.isValid()) {
-    setNote((prevNote) => ({
-      ...prevNote,
-      alert: parsedDate.toISOString(),
-    }));
-  } else {
-    setNote((prevNote) => ({
-      ...prevNote,
-      alert: null, 
-    }));
-  }
+    if (parsedDate.isValid()) {
+      setNote((prevNote) => ({
+        ...prevNote,
+        alert: parsedDate.toISOString(),
+      }));
+    } else {
+      setNote((prevNote) => ({
+        ...prevNote,
+        alert: null,
+      }));
+    }
   }
 
   async function handleSubmit(event) {
@@ -158,8 +158,11 @@ function CreateArea() {
     event.preventDefault();
   }
 
+
   return (
-    <Box className="box">
+    <Box
+      className="box"
+    >
       <Card className={"card" + " " + (darkMode ? " dark" : "")}>
         <CardContent className="card-content">
           <form className={"create-note" + " " + (darkMode ? " dark" : "")}>
@@ -205,7 +208,10 @@ function CreateArea() {
               </LocalizationProvider>
             )}
 
-            <Zoom in={isClicked} className={"addButton" + " " + (darkMode ? " dark" : "")}>
+            <Zoom
+              in={isClicked}
+              className={"addButton" + " " + (darkMode ? " dark" : "")}
+            >
               {update.update ? (
                 <Fab onClick={handleUpdateSubmit} disabled={isLoading}>
                   <ChangeCircleIcon />

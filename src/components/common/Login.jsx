@@ -19,7 +19,7 @@ export default function Login() {
       <Typography className="phrase1">
        Capture your thoughts instantly, organize effortlessly, and never let an idea slip away. Your digital sticky notes, reimagined!
         </Typography>
-        <img src={login} alt="login" width={350} />
+        <img src={login} alt="login" className="login-image" />
         <Typography className="phrase2">
           Welcome Back!
         </Typography>

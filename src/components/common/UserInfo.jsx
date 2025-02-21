@@ -7,8 +7,8 @@ import {
   Container,
 } from "@mui/material";
 import settingsImage from "../../assets/settings.svg";
-import "../../styles/UserInfo.css";
 import Logout from "./Logout";
+import "../../styles/UserInfo.css";
 
 export default function UserInfo() {
   const user = useSelector((state) => state.user);

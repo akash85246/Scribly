@@ -18,3 +18,21 @@
   flex-direction: column;
   height: 90vh;
 }
+.login-image{
+  width: 20rem !important;
+}
+
+@media screen and (max-width: 770px) {
+  .container {
+    height: 90vh;
+  }
+  
+}
+@media screen and (max-width: 500px) {
+  .container {
+    height: 85vh;
+  }
+  .login-image{
+    width: 18rem !important;
+  }
+}

@@ -23,12 +23,18 @@
   }
   
 }
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 520px) {
   .note {
     margin: 5px;
-    width: 40vw;
+    padding: 5px !important;
+    width: 38vw !important;
   }
-  
+  body{
+    padding-top: 0.5rem !important;
+  }
+  .note-content{
+    max-height: 30vh !important;
+  }
 }
 
 .note.dark{

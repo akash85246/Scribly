@@ -8,10 +8,41 @@
   box-sizing: border-box;
   width: 100%;
   left: 0%;
-
   margin: auto;
 }
 
 .view-container>div{
   gap: 0rem !important;
+}
+
+@media screen and (max-width: 820px) {
+    
+  .view-container{
+      position: relative!important;
+      top: 1.2rem!important;
+      /* justify-content: center!important; */
+      gap: 5rem!important;
+      width: 34rem!important;
+  }
+  
+}
+@media screen and (max-width: 600px) {
+    
+  .view-container{
+     padding: 0rem!important;
+    margin: 0rem!important;
+      width: 100%!important;
+  }
+  body{
+    padding: 1rem !important;
+
+    padding-top: 4rem !important;
+
+  }
+}
+@media screen and (max-width: 520px) {
+  body{
+    padding-top: 2rem !important;
+  }
+  
 }

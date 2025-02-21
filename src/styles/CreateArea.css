@@ -106,3 +106,8 @@ form.create-note {
   outline: none !important;
   border-radius: 50% !important;
 }
+@media screen and (max-width: 600px) {
+  form.create-note {
+    width: 80vw;
+  }
+}

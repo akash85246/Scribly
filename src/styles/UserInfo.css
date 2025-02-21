@@ -31,6 +31,35 @@
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
 }
+@media screen and (max-width: 600px) {
+  .user-info__card {
+    padding: 0.6rem;
+  }
+  .user-info__avatar {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  .user-info__name {
+    font-size: 1rem !important;
+  }
+
+  .user-info__details p {
+    font-size: 0.8rem !important;
+  }
+  .user-info__settings {
+    width: 5rem !important;
+
+    bottom: -15px !important;
+    right: -10px !important;
+  }
+  .user-info-container {
+    padding: 0rem !important;
+  }
+  .user-info__content {
+    padding: 1rem  0.5rem !important;
+    gap: 1rem !important;
+  }
+}
 
 .user-info__avatar:hover {
   transform: scale(1.1);

@@ -7,7 +7,7 @@
     color: #f5f5f5 !important; 
 }
 .setting-info__title{
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
     font-weight: 600;
     color: #333;
     display: flex;
@@ -17,7 +17,7 @@
     color: #f5f5f5 !important;
 }
 .setting-info_subtitle{
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
     color: #666;
     margin-top: 4px;
     display: flex;
@@ -28,4 +28,17 @@
 
 .setting-info_subtitle.dark{
     color: #999 !important ;
+}
+@media screen and (max-width: 600px) {
+    .setting-info-container {
+        padding: 0rem !important;
+      }
+      .setting-info__card{
+        padding: 0.5rem !important;
+      }
+      .setting-info__title{
+        font-size: 1rem !important;}
+        .setting-info_subtitle{
+            font-size: 0.8rem !important;
+        }
 }

@@ -71,3 +71,64 @@
   background-color: #f1f1f1;
   color: #ffbb00;
 }
+@media screen and (max-width: 700px){
+  .app-bar{
+    padding: 16px 16px;
+  }
+  .app-name{
+    font-size: 1.5rem !important;
+  }
+  .icon{
+    width: 2rem!important; 
+    height: 2rem!important;
+  }
+  .avatar{
+    width: 2rem!important; 
+    height: 2rem!important;
+  }
+  
+}
+
+@media screen and (max-width: 500px){
+  .app-bar{
+    padding: 8px 8px;
+  }
+  .app-name{
+    font-size: 1.4rem !important;
+  }
+  .icon{
+    width: 1.8rem!important; 
+    height: 1.8rem!important;
+  }
+  .avatar{
+    width: 1.8rem!important; 
+    height: 1.8rem!important;
+  }
+  .google-signin{
+    font-size: 0.8rem !important;
+  }
+}
+@media screen and (max-width: 520px)
+{
+  .app-bar{
+    padding: 8px 8px;
+  }
+  .app-name{
+    font-size: 1.2rem !important;
+  }
+  .icon{
+    width: 1.5rem!important; 
+    height: 1.5rem!important;
+  }
+  .avatar{
+    width: 1.5rem!important; 
+    height: 1.5rem!important;
+  }
+  .google-signin{
+    font-size: 0.6rem !important;
+  }
+  .google-signin >span> svg{
+    width: 0.8rem !important;
+    height: 0.8rem !important;
+  }
+}
